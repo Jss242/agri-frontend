@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnosis Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0fff4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #2f855a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    h2 {
+      color: #2f855a;
+      text-align: center;
+    }
+    input[type=file] {
+      display: block;
+      margin: 10px auto;
+    }
+    #selected-file {
+      text-align: center;
+      margin: 10px 0;
+      font-style: italic;
+      color: #333;
+    }
+    button {
+      background-color: #2f855a;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px #276749;
+    }
+    button:hover {
+      background-color: #276749;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px #276749;
+    }
+    .result, .solutions {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #e6fff0;
+      animation: fadeIn 0.5s;
+    }
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    ul { line-height: 1.6; }
+    #preview {
+      display: block;
+      max-width: 400px;
+      max-height: 300px;
+      margin: 10px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<header>Crop Diagnosis</header>
+
+<div class="container">
+  <h2>Upload Crop Image</h2>
+  <input type="file" id="file-input" accept="image/*">
+  <div id="selected-file">No file chosen</div>
+  <img id="preview" src="" alt="" style="display:none;">
+  <button onclick="diagnose()">Diagnose</button>
+
+  <!-- Diagnosis Result -->
+  <div id="result" class="result" style="display:none;">
+    <h3>Diagnosis Result:</h3>
+    <p id="diagnosis-text"></p>
+  </div>
+
+  <!-- Precautions & Solutions -->
+  <div id="solutions" class="solutions" style="display:none;">
+    <h3>Precautions:</h3>
+    <ul>
+      <li>Inspect crops regularly for early detection.</li>
+      <li>Maintain proper spacing between plants.</li>
+      <li>Keep tools and hands clean while handling crops.</li>
+      <li>Avoid overwatering; monitor soil moisture.</li>
+      <li>Remove infected leaves or plants promptly.</li>
+    </ul>
+    <h3>Recommended Pesticides / Solutions:</h3>
+    <ul>
+      <li>Neem oil for general pests.</li>
+      <li>Bordeaux mixture for fungal infections.</li>
+      <li>Insecticidal soap for aphids and soft-bodied pests.</li>
+      <li>Follow safety instructions on pesticide labels.</li>
+      <li>Use protective gloves and masks during spraying.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  const fileInput = document.getElementById('file-input');
+  const selectedFile = document.getElementById('selected-file');
+  const preview = document.getElementById('preview');
+  const resultDiv = document.getElementById('result');
+  const diagnosisText = document.getElementById('diagnosis-text');
+  const solutionsDiv = document.getElementById('solutions');
+
+  fileInput.addEventListener('change', function() {
+    if(fileInput.files && fileInput.files[0]){
+      selectedFile.textContent = fileInput.files[0].name;
+      const reader = new FileReader();
+      reader.onload = function(e){
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      }
+      reader.readAsDataURL(fileInput.files[0]);
+    } else {
+      selectedFile.textContent = 'No file chosen';
+      preview.style.display = 'none';
+    }
+  });
+
+  function diagnose(){
+    if(!fileInput.files[0]){
+      alert("Please choose an image first.");
+      return;
+    }
+
+    // Simulated diagnosis (replace with AI model if integrated)
+    const fakeResults = [
+      "Healthy Crop",
+      "Detected: Leaf Blight",
+      "Detected: Aphid Infestation",
+      "Detected: Powdery Mildew",
+      "Detected: Yellowing Leaves (Nutrient Deficiency)"
+    ];
+    const randomIndex = Math.floor(Math.random() * fakeResults.length);
+    diagnosisText.textContent = fakeResults[randomIndex];
+    resultDiv.style.display = 'block';
+    solutionsDiv.style.display = 'block';
+    // Scroll to result
+    resultDiv.scrollIntoView({behavior:'smooth'});
+  }
+</script>
+<!-- Chat Button -->
+<div id="chat-button" style="position:fixed; bottom:20px; right:20px; z-index:1000;">
+  <button onclick="toggleChat()" style="background-color:#2f855a; color:white; padding:12px 20px; border:none; border-radius:50px; cursor:pointer; box-shadow:0 4px #276749; transition: all 0.3s ease;">Chat</button>
+</div>
+
+<!-- Chat Window -->
+<div id="chat-window" style="display:none; position:fixed; bottom:70px; right:20px; width:320px; max-height:400px; background:white; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.3); overflow:hidden; z-index:1000; font-family:Arial, sans-serif;">
+  <div id="chat-header" style="background:#2f855a; color:white; padding:10px; font-weight:bold; cursor:pointer;" onclick="toggleChat()">AgriBot (Click to close/open)</div>
+  <div id="chat-messages" style="padding:10px; height:250px; overflow-y:auto; font-size:14px; background:#f0fff4;"></div>
+  <div style="padding:10px; display:flex; background:#f0fff4;">
+    <input id="chat-input" type="text" placeholder="Ask about crops, pests, or farming..." style="flex:1; padding:6px; border:1px solid #ccc; border-radius:6px;">
+    <button onclick="sendMessage()" style="background:#2f855a; color:white; padding:6px 12px; border:none; border-radius:6px; margin-left:5px; cursor:pointer;">Send</button>
+  </div>
+</div>
+
+<style>
+  .chat-message { opacity:0; transform:translateY(10px); animation:popUp 0.3s forwards; margin-bottom:6px; }
+  @keyframes popUp { to { opacity:1; transform:translateY(0); } }
+  .typing { font-style:italic; color:#555; opacity:0.7; }
+</style>
+
+<script>
+  function toggleChat() {
+    const chat = document.getElementById('chat-window');
+    chat.style.display = chat.style.display === 'none' ? 'block' : 'none';
+  }
+
+  const chatMessages = document.getElementById('chat-messages');
+
+  function appendMessage(sender, text) {
+    const div = document.createElement('div');
+    div.className = 'chat-message';
+    div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if(!msg) return;
+
+    appendMessage('You', msg);
+    input.value = '';
+
+    // Bot response with typing delay
+    const botReply = getBotResponse(msg);
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chat-message typing';
+    typingDiv.innerHTML = 'Bot is typing...';
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    setTimeout(() => {
+      typingDiv.remove();
+      appendMessage('Bot', botReply);
+    }, 800); // 0.8s typing delay
+  }
+
+  function getBotResponse(message) {
+    const msg = message.toLowerCase();
+
+    if(msg.includes('hi') || msg.includes('hello')) return "Hello! I am AgriBot. How can I help you with farming or crops today?";
+    if(msg.includes('crop')) return "You can use the Diagnosis page to check your crops' health.";
+    if(msg.includes('pest')) return "Pests can damage crops. Upload images in the Diagnosis page for detection.";
+    if(msg.includes('agriculture')) return "Agriculture involves crop cultivation, irrigation, and pest management. Our site helps you monitor it.";
+    if(msg.includes('farmer')) return "Farmers can track crop health and get guidance using our Diagnosis and FAQ sections.";
+    if(msg.includes('irrigation')) return "Regular irrigation is important but avoid overwatering. Crop type matters.";
+    if(msg.includes('disease') || msg.includes('health')) return "Upload crop images in the Diagnosis page to detect any disease or pest.";
+    
+    return "This feature is in progress. We will update soon!";
+  }
+</script>
+
+</body>
+</html>

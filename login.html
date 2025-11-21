@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Agri Health</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0fff4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .login-container:hover {
+      transform: scale(1.02);
+    }
+
+    h1 {
+      color: #2f855a;
+      margin-bottom: 10px;
+    }
+
+    p.tagline {
+      color: #276749;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #2f855a;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #276749;
+      box-shadow: 0 0 5px #276749;
+    }
+
+    button {
+      background-color: #2f855a;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+      width: 95%;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px #276749;
+      position: relative;
+    }
+
+    button:hover {
+      background-color: #276749;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px #276749;
+    }
+
+    button:active {
+      transform: translateY(2px) scale(0.98);
+      box-shadow: 0 2px #276749;
+    }
+
+    /* Forgot password link */
+    .forgot-password {
+      margin-top: 12px;
+    }
+
+    .forgot-password a {
+      color: #2f855a;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .forgot-password a:hover {
+      text-decoration: underline;
+      transform: scale(1.05);
+    }
+
+    /* Error message */
+    .error-msg {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h1>Agri Health</h1>
+    <p class="tagline">Empowering farmers with AI-assisted crop health insights</p>
+
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+
+    <div class="forgot-password">
+      <a href="#" onclick="alert('Password recovery will be implemented soon'); return false;">Forgot Password?</a>
+    </div>
+
+    <button onclick="login()">Login</button>
+    <p class="error-msg" id="error-msg">Invalid username or password!</p>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorMsg = document.getElementById('error-msg');
+
+      // Password validation: min 8 chars, at least 1 uppercase
+      const passwordRegex = /^(?=.*[A-Z]).{8,}$/;
+
+      if (!username || !password) {
+        errorMsg.textContent = "Username and password cannot be empty!";
+        errorMsg.style.display = "block";
+        return;
+      }
+
+      if (!passwordRegex.test(password)) {
+        errorMsg.textContent = "Password must be at least 8 characters and contain a capital letter!";
+        errorMsg.style.display = "block";
+        return;
+      }
+
+      // For prototype: accept any username & password that meets rules
+      errorMsg.style.display = "none";
+
+      // Redirect to Home Page
+      window.location.href = 'home.html';
+    }
+  </script>
+  <!-- Chat Button -->
+<<!-- Chat Button -->
+<div id="chat-button" style="position:fixed; bottom:20px; right:20px; z-index:1000;">
+  <button onclick="toggleChat()" style="background-color:#2f855a; color:white; padding:12px 20px; border:none; border-radius:50px; cursor:pointer; box-shadow:0 4px #276749; transition: all 0.3s ease;">Chat</button>
+</div>
+
+<!-- Chat Window -->
+<div id="chat-window" style="display:none; position:fixed; bottom:70px; right:20px; width:320px; max-height:400px; background:white; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.3); overflow:hidden; z-index:1000; font-family:Arial, sans-serif;">
+  <div id="chat-header" style="background:#2f855a; color:white; padding:10px; font-weight:bold; cursor:pointer;" onclick="toggleChat()">AgriBot (Click to close/open)</div>
+  <div id="chat-messages" style="padding:10px; height:250px; overflow-y:auto; font-size:14px; background:#f0fff4;"></div>
+  <div style="padding:10px; display:flex; background:#f0fff4;">
+    <input id="chat-input" type="text" placeholder="Ask about crops, pests, or farming..." style="flex:1; padding:6px; border:1px solid #ccc; border-radius:6px;">
+    <button onclick="sendMessage()" style="background:#2f855a; color:white; padding:6px 12px; border:none; border-radius:6px; margin-left:5px; cursor:pointer;">Send</button>
+  </div>
+</div>
+
+<style>
+  .chat-message { opacity:0; transform:translateY(10px); animation:popUp 0.3s forwards; margin-bottom:6px; }
+  @keyframes popUp { to { opacity:1; transform:translateY(0); } }
+  .typing { font-style:italic; color:#555; opacity:0.7; }
+</style>
+
+<script>
+  function toggleChat() {
+    const chat = document.getElementById('chat-window');
+    chat.style.display = chat.style.display === 'none' ? 'block' : 'none';
+  }
+
+  const chatMessages = document.getElementById('chat-messages');
+
+  function appendMessage(sender, text) {
+    const div = document.createElement('div');
+    div.className = 'chat-message';
+    div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if(!msg) return;
+
+    appendMessage('You', msg);
+    input.value = '';
+
+    // Bot response with typing delay
+    const botReply = getBotResponse(msg);
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chat-message typing';
+    typingDiv.innerHTML = 'Bot is typing...';
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    setTimeout(() => {
+      typingDiv.remove();
+      appendMessage('Bot', botReply);
+    }, 800); // 0.8s typing delay
+  }
+
+  function getBotResponse(message) {
+    const msg = message.toLowerCase();
+
+    if(msg.includes('hi') || msg.includes('hello')) return "Hello! I am AgriBot. How can I help you with farming or crops today?";
+    if(msg.includes('crop')) return "You can use the Diagnosis page to check your crops' health.";
+    if(msg.includes('pest')) return "Pests can damage crops. Upload images in the Diagnosis page for detection.";
+    if(msg.includes('agriculture')) return "Agriculture involves crop cultivation, irrigation, and pest management. Our site helps you monitor it.";
+    if(msg.includes('farmer')) return "Farmers can track crop health and get guidance using our Diagnosis and FAQ sections.";
+    if(msg.includes('irrigation')) return "Regular irrigation is important but avoid overwatering. Crop type matters.";
+    if(msg.includes('disease') || msg.includes('health')) return "Upload crop images in the Diagnosis page to detect any disease or pest.";
+    
+    return "This feature is in progress. We will update soon!";
+  }
+</script>
+
+</body>
+</html>

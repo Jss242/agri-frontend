@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Live Weather Forecast</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom right, #dbe9ff, #f8faff);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+    }
+
+    /* Weather Card */
+    .weather-box {
+        width: 380px;
+        padding: 25px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        text-align: center;
+        animation: fadeIn 1s ease-out;
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .weather-box:hover {
+        transform: scale(1.03);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+    }
+
+    h2 {
+        margin-bottom: 15px;
+    }
+
+    /* Input Box */
+    input {
+        width: 85%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #bcd0ff;
+        border-radius: 10px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    input:focus {
+        border-color: #527bff;
+        box-shadow: 0 0 8px #a3bcff;
+    }
+
+    /* Button */
+    button {
+        padding: 12px 18px;
+        border: none;
+        border-radius: 10px;
+        background: #527bff;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 15px;
+    }
+
+    button:hover {
+        background: #355dff;
+        transform: scale(1.05);
+    }
+
+    /* Weather results animation */
+    #result {
+        margin-top: 20px;
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FAQ Section */
+    .faq {
+        width: 60%;
+        margin-top: 40px;
+        background: white;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+        animation: fadeIn 1.2s ease-out;
+    }
+
+    details {
+        margin-bottom: 12px;
+        padding: 12px;
+        border-radius: 12px;
+        background: #eef3ff;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    details:hover {
+        background: #d9e5ff;
+    }
+
+    summary {
+        font-weight: bold;
+        font-size: 17px;
+    }
+
+    .content-box {
+        margin-top: 40px;
+        font-size: 18px;
+        width: 70%;
+        text-align: center;
+        animation: fadeIn 1.4s ease-out;
+    }
+</style>
+</head>
+<body>
+
+<div class="weather-box">
+    <h2>🌤️ Live Weather Forecast</h2>
+
+    <input type="text" id="city" placeholder="Enter city name">
+    <button type="button" onclick="getWeather()">Get Weather</button>
+
+    <div id="result"></div>
+</div>
+
+<!-- Content Area -->
+<div class="content-box">
+    <h3>Why Weather Forecasting Matters?</h3>
+    <p>
+        Weather forecasting helps farmers plan irrigation, protect crops,
+        schedule planting, and avoid climate risks. Accurate forecasting
+        reduces losses and increases productivity.
+    </p>
+</div>
+
+<!-- FAQ Section -->
+<div class="faq">
+    <h2>❓ Frequently Asked Questions</h2>
+
+    <details>
+        <summary>How does this weather system work?</summary>
+        <p>This system uses the OpenWeather API to fetch real-time temperature, humidity, and weather conditions for any city.</p>
+    </details>
+
+    <details>
+        <summary>Is the weather information accurate?</summary>
+        <p>Yes. The data is fetched directly from OpenWeatherMap, one of the world’s most trusted climate data providers.</p>
+    </details>
+
+    <details>
+        <summary>What can farmers benefit from this?</summary>
+        <p>Farmers can plan irrigation, fertilizer use, harvest timing, and crop protection more effectively with live weather updates.</p>
+    </details>
+
+    <details>
+        <summary>Can I check weather for any city?</summary>
+        <p>Yes, you can search for any global city and get instant live weather data.</p>
+    </details>
+</div>
+
+<script>
+async function getWeather() {
+
+    let city = document.getElementById("city").value;
+    let apiKey = "b215483be03f654efda3ef9479f4cc74";
+
+    if (city === "") {
+        alert("Please enter a city name");
+        return;
+    }
+
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+
+    let response = await fetch(url);
+    let data = await response.json();
+
+    let result = document.getElementById("result");
+
+    if (data.cod === "404") {
+        result.innerHTML = `<p>City not found!</p>`;
+        result.style.opacity = "1";
+        return;
+    }
+
+    result.innerHTML = `
+        <h3>${data.name}, ${data.sys.country}</h3>
+        <p><b>Temperature:</b> ${data.main.temp}°C</p>
+        <p><b>Condition:</b> ${data.weather[0].description}</p>
+        <p><b>Humidity:</b> ${data.main.humidity}%</p>
+        <p><b>Wind:</b> ${data.wind.speed} m/s</p>
+    `;
+
+    result.style.opacity = "1"; // trigger fade-in animation
+}
+</script>
+!-- Chat Button -->
+<<div id="chat-button" style="position:fixed; bottom:20px; right:20px; z-index:1000;">
+  <button onclick="toggleChat()" style="background-color:#2f855a; color:white; padding:12px 20px; border:none; border-radius:50px; cursor:pointer; box-shadow:0 4px #276749; transition: all 0.3s ease;">Chat</button>
+</div>
+
+<!-- Chat Window -->
+<!-- Chat Button -->
+<div id="chat-button" style="position:fixed; bottom:20px; right:20px; z-index:1000;">
+  <button onclick="toggleChat()" style="background-color:#2f855a; color:white; padding:12px 20px; border:none; border-radius:50px; cursor:pointer; box-shadow:0 4px #276749; transition: all 0.3s ease;">Chat</button>
+</div>
+
+<!-- Chat Window -->
+<div id="chat-window" style="display:none; position:fixed; bottom:70px; right:20px; width:320px; max-height:400px; background:white; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.3); overflow:hidden; z-index:1000; font-family:Arial, sans-serif;">
+  <div id="chat-header" style="background:#2f855a; color:white; padding:10px; font-weight:bold; cursor:pointer;" onclick="toggleChat()">AgriBot (Click to close/open)</div>
+  <div id="chat-messages" style="padding:10px; height:250px; overflow-y:auto; font-size:14px; background:#f0fff4;"></div>
+  <div style="padding:10px; display:flex; background:#f0fff4;">
+    <input id="chat-input" type="text" placeholder="Ask about crops, pests, or farming..." style="flex:1; padding:6px; border:1px solid #ccc; border-radius:6px;">
+    <button onclick="sendMessage()" style="background:#2f855a; color:white; padding:6px 12px; border:none; border-radius:6px; margin-left:5px; cursor:pointer;">Send</button>
+  </div>
+</div>
+
+<style>
+  .chat-message { opacity:0; transform:translateY(10px); animation:popUp 0.3s forwards; margin-bottom:6px; }
+  @keyframes popUp { to { opacity:1; transform:translateY(0); } }
+  .typing { font-style:italic; color:#555; opacity:0.7; }
+</style>
+
+<script>
+  function toggleChat() {
+    const chat = document.getElementById('chat-window');
+    chat.style.display = chat.style.display === 'none' ? 'block' : 'none';
+  }
+
+  const chatMessages = document.getElementById('chat-messages');
+
+  function appendMessage(sender, text) {
+    const div = document.createElement('div');
+    div.className = 'chat-message';
+    div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if(!msg) return;
+
+    appendMessage('You', msg);
+    input.value = '';
+
+    // Bot response with typing delay
+    const botReply = getBotResponse(msg);
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chat-message typing';
+    typingDiv.innerHTML = 'Bot is typing...';
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    setTimeout(() => {
+      typingDiv.remove();
+      appendMessage('Bot', botReply);
+    }, 800); // 0.8s typing delay
+  }
+
+  function getBotResponse(message) {
+    const msg = message.toLowerCase();
+
+    if(msg.includes('hi') || msg.includes('hello')) return "Hello! I am AgriBot. How can I help you with farming or crops today?";
+    if(msg.includes('crop')) return "You can use the Diagnosis page to check your crops' health.";
+    if(msg.includes('pest')) return "Pests can damage crops. Upload images in the Diagnosis page for detection.";
+    if(msg.includes('agriculture')) return "Agriculture involves crop cultivation, irrigation, and pest management. Our site helps you monitor it.";
+    if(msg.includes('farmer')) return "Farmers can track crop health and get guidance using our Diagnosis and FAQ sections.";
+    if(msg.includes('irrigation')) return "Regular irrigation is important but avoid overwatering. Crop type matters.";
+    if(msg.includes('disease') || msg.includes('health')) return "Upload crop images in the Diagnosis page to detect any disease or pest.";
+    
+    return "This feature is in progress. We will update soon!";
+  }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Season Prediction</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#f0fff4; margin:0; padding:0; }
+  header { background:#2f855a; color:white; padding:20px; text-align:center; font-size:28px; font-weight:bold; }
+  nav { background:#276749; display:flex; justify-content:center; padding:10px; }
+  nav a { color:white; margin:0 15px; text-decoration:none; font-weight:bold; transition:0.3s; }
+  nav a:hover { color:#f0fff4; text-decoration:underline; }
+  .container { max-width:1000px; margin:30px auto; padding:20px; background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.2); }
+  h2 { text-align:center; color:#2f855a; margin-bottom:20px; }
+  select, button { padding:12px; border-radius:6px; border:1px solid #ccc; font-size:16px; margin:10px 0; }
+  button { background-color:#2f855a; color:white; border:none; cursor:pointer; box-shadow:0 4px #276749; transition:all 0.3s ease; }
+  button:hover { background-color:#276749; transform: translateY(-3px) scale(1.05); box-shadow:0 6px #276749; }
+  .result { margin-top:20px; padding:20px; background:#e6fff0; border-radius:12px; animation:fadeIn 0.7s; }
+  .result h3 { color:#276749; margin-bottom:10px; }
+  ul { line-height:1.6; }
+  .section { margin-bottom:20px; }
+  .section li { transition: all 0.3s; }
+  .section li:hover { transform: translateX(10px); color:#2f855a; }
+  @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+  .highlight { color:#2f855a; font-weight:bold; }
+</style>
+</head>
+<body>
+
+<header>🌱 Season Prediction for Farmers</header>
+
+<nav>
+  <a href="home.html">Home</a>
+  <a href="diagnosis.html">Diagnosis</a>
+  <a href="about.html">About</a>
+  <a href="season_prediction.html">Season Prediction</a>
+</nav>
+
+<div class="container">
+  <h2>Predict Current Agricultural Season</h2>
+  <p style="text-align:center;">Select the current month to get the predicted season, recommended crops, and farming tips.</p>
+  
+  <label for="month">Select Current Month:</label><br>
+  <select id="month">
+    <option value="1">January</option>
+    <option value="2">February</option>
+    <option value="3">March</option>
+    <option value="4">April</option>
+    <option value="5">May</option>
+    <option value="6">June</option>
+    <option value="7">July</option>
+    <option value="8">August</option>
+    <option value="9">September</option>
+    <option value="10">October</option>
+    <option value="11">November</option>
+    <option value="12">December</option>
+  </select><br>
+  <button onclick="predictSeason()">Predict Season</button>
+
+  <div id="result" class="result" style="display:none;">
+    <h3>Season: <span id="season-name" class="highlight"></span></h3>
+    <p id="season-desc" style="margin-bottom:15px;"></p>
+    
+    <div class="section">
+      <h3>🌾 Recommended Crops:</h3>
+      <ul id="crop-list"></ul>
+    </div>
+
+    <div class="section">
+      <h3>🛡️ Precautions & Best Practices:</h3>
+      <ul id="precautions-list"></ul>
+    </div>
+
+    <div class="section">
+      <h3>💧 Fertilizers & Pesticides Recommendations:</h3>
+      <ul id="fertilizer-list"></ul>
+    </div>
+
+    <div class="section">
+      <h3>💡 Additional Tips & Resources:</h3>
+      <ul>
+        <li>Visit <a href="https://www.ceew.in/" target="_blank">CEEW</a> for agriculture insights.</li>
+        <li>Maintain crop rotation to improve soil health.</li>
+        <li>Use drip irrigation for water efficiency.</li>
+        <li>Monitor crops for pests using the Diagnosis page.</li>
+        <li>Use organic fertilizers for sustainable growth.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+function predictSeason(){
+  const month = parseInt(document.getElementById('month').value);
+  const seasonName = document.getElementById('season-name');
+  const seasonDesc = document.getElementById('season-desc');
+  const cropList = document.getElementById('crop-list');
+  const precautionsList = document.getElementById('precautions-list');
+  const fertilizerList = document.getElementById('fertilizer-list');
+
+  let season = "";
+  let desc = "";
+  let crops = [];
+  let precautions = [];
+  let fertilizers = [];
+
+  if([6,7,8,9,10].includes(month)){
+    season = "Kharif Season";
+    desc = "Monsoon-dependent season with high rainfall, ideal for water-loving crops.";
+    crops = ["🌾 Rice - High yield during monsoon", "🌽 Maize - Requires well-drained soil", "棉 Cotton - Warm & humid conditions", "🌱 Soybean - Nitrogen fixing crop", "🥜 Groundnut - Prefers sandy loam"];
+    precautions = [
+      "Sow at start of monsoon for best yield.",
+      "Ensure proper drainage to avoid waterlogging.",
+      "Monitor for stem borers and leaf blight.",
+      "Regularly remove weeds to reduce competition."
+    ];
+    fertilizers = ["Nitrogen-rich fertilizers for growth", "Phosphorus for root development", "Potassium for flowering"];
+  } else if([11,12,1,2].includes(month)){
+    season = "Rabi Season";
+    desc = "Cool-season crops after monsoon; suitable for wheat, barley, and legumes.";
+    crops = ["🌾 Wheat - Sow in November-December", "🌱 Gram - Drought tolerant", "🌻 Mustard - Requires sunny weather", "🍚 Barley - Good for temperate regions"];
+    precautions = [
+      "Sow after monsoon ends to avoid excess moisture.",
+      "Protect from frost in northern regions.",
+      "Monitor for aphids and fungal infections.",
+      "Maintain proper spacing to avoid diseases."
+    ];
+    fertilizers = ["Balanced NPK fertilizers", "Zinc for mustard crops", "Organic compost where possible"];
+  } else if([3,4,5].includes(month)){
+    season = "Zaid Season";
+    desc = "Short-season crops during summer months; requires irrigation and heat-tolerant varieties.";
+    crops = ["🍉 Watermelon - High water requirement", "🍈 Muskmelon - Plant in well-drained soil", "🥒 Cucumber - Use trellis for climbing", "🥦 Vegetables - Rapid growing varieties"];
+    precautions = [
+      "Prepare land properly before sowing.",
+      "Irrigate regularly due to low rainfall.",
+      "Monitor for aphids and whiteflies.",
+      "Provide shading in extremely hot days."
+    ];
+    fertilizers = ["Potassium-rich fertilizers for fruiting", "Organic compost", "Micronutrients as per soil test"];
+  }
+
+  seasonName.textContent = season;
+  seasonDesc.textContent = desc;
+
+  cropList.innerHTML = "";
+  crops.forEach(c => cropList.innerHTML += `<li>${c}</li>`);
+
+  precautionsList.innerHTML = "";
+  precautions.forEach(p => precautionsList.innerHTML += `<li>${p}</li>`);
+
+  fertilizerList.innerHTML = "";
+  fertilizers.forEach(f => fertilizerList.innerHTML += `<li>${f}</li>`);
+
+  const resultDiv = document.getElementById('result');
+  resultDiv.style.display = "block";
+  resultDiv.scrollIntoView({behavior:'smooth'});
+}
+</script>
+<!-- Chat Button -->
+<div id="chat-button" style="position:fixed; bottom:20px; right:20px; z-index:1000;">
+  <button onclick="toggleChat()" style="background-color:#2f855a; color:white; padding:12px 20px; border:none; border-radius:50px; cursor:pointer; box-shadow:0 4px #276749; transition: all 0.3s ease;">Chat</button>
+</div>
+
+<!-- Chat Window -->
+<div id="chat-window" style="display:none; position:fixed; bottom:70px; right:20px; width:320px; max-height:400px; background:white; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.3); overflow:hidden; z-index:1000; font-family:Arial, sans-serif;">
+  <div id="chat-header" style="background:#2f855a; color:white; padding:10px; font-weight:bold; cursor:pointer;" onclick="toggleChat()">AgriBot (Click to close/open)</div>
+  <div id="chat-messages" style="padding:10px; height:250px; overflow-y:auto; font-size:14px; background:#f0fff4;"></div>
+  <div style="padding:10px; display:flex; background:#f0fff4;">
+    <input id="chat-input" type="text" placeholder="Ask about crops, pests, or farming..." style="flex:1; padding:6px; border:1px solid #ccc; border-radius:6px;">
+    <button onclick="sendMessage()" style="background:#2f855a; color:white; padding:6px 12px; border:none; border-radius:6px; margin-left:5px; cursor:pointer;">Send</button>
+  </div>
+</div>
+
+<style>
+  .chat-message { opacity:0; transform:translateY(10px); animation:popUp 0.3s forwards; margin-bottom:6px; }
+  @keyframes popUp { to { opacity:1; transform:translateY(0); } }
+  .typing { font-style:italic; color:#555; opacity:0.7; }
+</style>
+
+<script>
+  function toggleChat() {
+    const chat = document.getElementById('chat-window');
+    chat.style.display = chat.style.display === 'none' ? 'block' : 'none';
+  }
+
+  const chatMessages = document.getElementById('chat-messages');
+
+  function appendMessage(sender, text) {
+    const div = document.createElement('div');
+    div.className = 'chat-message';
+    div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if(!msg) return;
+
+    appendMessage('You', msg);
+    input.value = '';
+
+    // Bot response with typing delay
+    const botReply = getBotResponse(msg);
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chat-message typing';
+    typingDiv.innerHTML = 'Bot is typing...';
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    setTimeout(() => {
+      typingDiv.remove();
+      appendMessage('Bot', botReply);
+    }, 800); // 0.8s typing delay
+  }
+
+  function getBotResponse(message) {
+    const msg = message.toLowerCase();
+
+    if(msg.includes('hi') || msg.includes('hello')) return "Hello! I am AgriBot. How can I help you with farming or crops today?";
+    if(msg.includes('crop')) return "You can use the Diagnosis page to check your crops' health.";
+    if(msg.includes('pest')) return "Pests can damage crops. Upload images in the Diagnosis page for detection.";
+    if(msg.includes('agriculture')) return "Agriculture involves crop cultivation, irrigation, and pest management. Our site helps you monitor it.";
+    if(msg.includes('farmer')) return "Farmers can track crop health and get guidance using our Diagnosis and FAQ sections.";
+    if(msg.includes('irrigation')) return "Regular irrigation is important but avoid overwatering. Crop type matters.";
+    if(msg.includes('disease') || msg.includes('health')) return "Upload crop images in the Diagnosis page to detect any disease or pest.";
+    
+    return "This feature is in progress. We will update soon!";
+  }
+</script>
+</body>
+</html>

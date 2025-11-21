@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Agri Health</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f0fff4;
+      color: #276749;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 50px 20px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .hero:hover {
+      transform: scale(1.02);
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      color: #2f855a;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Buttons Section */
+    .buttons {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .buttons button {
+      background-color: #2f855a;
+      color: white;
+      padding: 14px 24px;
+      margin: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px #276749;
+      position: relative;
+    }
+
+    .buttons button:hover {
+      background-color: #276749;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px #276749;
+    }
+
+    .buttons button:active {
+      transform: translateY(2px) scale(0.98);
+      box-shadow: 0 2px #276749;
+    }
+
+    /* Tips Section */
+    .tips {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto 40px auto;
+    }
+
+    .tip-card {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .tip-card:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+
+    .tip-card h3 {
+      color: #2f855a;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .tip-card p {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    /* Stats Section */
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+
+    .stat-card {
+      background-color: #ffffff;
+      padding: 25px 35px;
+      border-radius: 12px;
+      text-align: center;
+      width: 200px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+
+    .stat-card h2 {
+      font-size: 28px;
+      color: #2f855a;
+      margin-bottom: 5px;
+    }
+
+    .stat-card p {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    /* Footer / Logout */
+    .footer {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .footer button {
+      width: 150px;
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 600px) {
+      .stats {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Welcome to Agri Health</h1>
+    <p>Monitor crop health, detect pests, and get actionable insights to improve yield.</p>
+  </div>
+
+  <!-- Buttons Section -->
+  <div class="buttons">
+    <button onclick="location.href='diagnosis.html'">Check Crop Health</button>
+    <button onclick="location.href='weather_faq.html'">Weather & FAQ</button>
+    <button onclick="location.href='season_predicition.html'">Season Predicition</button>
+    <button onclick="location.href='about.html'">About Us</button>
+  </div>
+
+  <!-- Tips Section -->
+  <div class="tips">
+    <div class="tip-card">
+      <h3>Water Crops Early</h3>
+      <p>Water your crops in the early morning to reduce evaporation and maximize absorption.</p>
+    </div>
+    <div class="tip-card">
+      <h3>Weekly Pest Check</h3>
+      <p>Inspect your crops weekly to detect any early signs of pest infestation.</p>
+    </div>
+    <div class="tip-card">
+      <h3>Use Organic Fertilizers</h3>
+      <p>Maintain healthy soil and crops by using organic fertilizers instead of chemical-heavy options.</p>
+    </div>
+  </div>
+
+  <!-- Stats Section -->
+  <div class="stats">
+    <div class="stat-card">
+      <h2>50+</h2>
+      <p>Crops Monitored</p>
+    </div>
+    <div class="stat-card">
+      <h2>90%</h2>
+      <p>Healthy Crops Detected</p>
+    </div>
+    <div class="stat-card">
+      <h2>10+</h2>
+      <p>Pest Types Identified</p>
+    </div>
+  </div>
+
+  <!-- Footer / Logout -->
+  <div class="footer">
+    <button onclick="location.href='login.html'">Logout</button>
+  </div>
+  <!-- Chat Button -->
+<<!-- Chat Button -->
+<div id="chat-button" style="position:fixed; bottom:20px; right:20px; z-index:1000;">
+  <button onclick="toggleChat()" style="background-color:#2f855a; color:white; padding:12px 20px; border:none; border-radius:50px; cursor:pointer; box-shadow:0 4px #276749; transition: all 0.3s ease;">Chat</button>
+</div>
+
+<!-- Chat Window -->
+<div id="chat-window" style="display:none; position:fixed; bottom:70px; right:20px; width:320px; max-height:400px; background:white; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.3); overflow:hidden; z-index:1000; font-family:Arial, sans-serif;">
+  <div id="chat-header" style="background:#2f855a; color:white; padding:10px; font-weight:bold; cursor:pointer;" onclick="toggleChat()">AgriBot (Click to close/open)</div>
+  <div id="chat-messages" style="padding:10px; height:250px; overflow-y:auto; font-size:14px; background:#f0fff4;"></div>
+  <div style="padding:10px; display:flex; background:#f0fff4;">
+    <input id="chat-input" type="text" placeholder="Ask about crops, pests, or farming..." style="flex:1; padding:6px; border:1px solid #ccc; border-radius:6px;">
+    <button onclick="sendMessage()" style="background:#2f855a; color:white; padding:6px 12px; border:none; border-radius:6px; margin-left:5px; cursor:pointer;">Send</button>
+  </div>
+</div>
+
+<style>
+  .chat-message { opacity:0; transform:translateY(10px); animation:popUp 0.3s forwards; margin-bottom:6px; }
+  @keyframes popUp { to { opacity:1; transform:translateY(0); } }
+  .typing { font-style:italic; color:#555; opacity:0.7; }
+</style>
+
+<script>
+  function toggleChat() {
+    const chat = document.getElementById('chat-window');
+    chat.style.display = chat.style.display === 'none' ? 'block' : 'none';
+  }
+
+  const chatMessages = document.getElementById('chat-messages');
+
+  function appendMessage(sender, text) {
+    const div = document.createElement('div');
+    div.className = 'chat-message';
+    div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if(!msg) return;
+
+    appendMessage('You', msg);
+    input.value = '';
+
+    // Bot response with typing delay
+    const botReply = getBotResponse(msg);
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chat-message typing';
+    typingDiv.innerHTML = 'Bot is typing...';
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    setTimeout(() => {
+      typingDiv.remove();
+      appendMessage('Bot', botReply);
+    }, 800); // 0.8s typing delay
+  }
+
+  function getBotResponse(message) {
+    const msg = message.toLowerCase();
+
+    if(msg.includes('hi') || msg.includes('hello')) return "Hello! I am AgriBot. How can I help you with farming or crops today?";
+    if(msg.includes('crop')) return "You can use the Diagnosis page to check your crops' health.";
+    if(msg.includes('pest')) return "Pests can damage crops. Upload images in the Diagnosis page for detection.";
+    if(msg.includes('agriculture')) return "Agriculture involves crop cultivation, irrigation, and pest management. Our site helps you monitor it.";
+    if(msg.includes('farmer')) return "Farmers can track crop health and get guidance using our Diagnosis and FAQ sections.";
+    if(msg.includes('irrigation')) return "Regular irrigation is important but avoid overwatering. Crop type matters.";
+    if(msg.includes('disease') || msg.includes('health')) return "Upload crop images in the Diagnosis page to detect any disease or pest.";
+    
+    return "This feature is in progress. We will update soon!";
+  }
+
+</script>
+
+</body>
+</html>

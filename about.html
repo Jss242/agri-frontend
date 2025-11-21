@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Agri Health</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #f0fff4;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #2f855a;
+      margin-bottom: 30px;
+    }
+
+    /* Two-column cards layout */
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    }
+
+    .card.contact{
+        grid-column:1/-1 ;
+        margin: 0 auto;
+    }
+
+    .section-title {
+      color: #2f855a;
+      margin-bottom: 15px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    p, ul {
+      font-size: 16px;
+      color: #276749;
+      line-height: 1.7;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .contact p {
+      text-align: center;
+    }
+
+    .recommendation {
+      font-style: italic;
+      margin-top: 10px;
+      color: #276749;
+    }
+
+    .nav-buttons {
+      margin-top: 35px;
+      text-align: center;
+    }
+
+    button {
+      background-color: #2f855a;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px #276749;
+      position: relative;
+    }
+
+    button:hover {
+      background-color: #276749;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 6px #276749;
+    }
+
+    button:active {
+      transform: translateY(2px) scale(0.98);
+      box-shadow: 0 2px #276749;
+    }
+
+    /* Responsive for mobile */
+    @media screen and (max-width: 900px) {
+      .cards-container {
+        grid-template-columns: 1fr; /* single column on small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>About Agri Health</h1>
+
+    <div class="cards-container">
+      <!-- Purpose -->
+      <div class="card">
+        <div class="section-title">Our Purpose</div>
+        <p>
+          Agri Health is designed to empower farmers and agricultural officers to monitor crop health efficiently. 
+          By combining technology with practical solutions, it provides real-time guidance to detect pests, protect crops, and optimize yield.
+        </p>
+      </div>
+
+      <!-- Features -->
+      <div class="card">
+        <div class="section-title">Features</div>
+        <ul>
+          <li>Upload crop images for instant diagnosis</li>
+          <li>Receive actionable tips and preventive measures</li>
+          <li>Secure login and personalized access</li>
+          <li>Navigation to Home, Diagnosis, and About pages</li>
+          <li>Subtle animations and interactive design</li>
+        </ul>
+      </div>
+
+      <!-- Benefits -->
+      <div class="card">
+        <div class="section-title">Benefits</div>
+        <ul>
+          <li>Time-saving pest detection</li>
+          <li>Reduce crop loss and increase yield</li>
+          <li>Technology-assisted farming for better efficiency</li>
+          <li>Educates farmers on crop management</li>
+        </ul>
+      </div>
+
+      <!-- Suggestions / Roadmap -->
+      <div class="card">
+        <div class="section-title">Suggestions / Roadmap</div>
+        <ul>
+          <li>Integrate real AI model for accurate pest detection</li>
+          <li>Add multi-crop support</li>
+          <li>Maintain history of past diagnoses</li>
+          <li>Mobile app version for on-field accessibility</li>
+        </ul>
+      </div>
+
+      <!-- Contact / Team -->
+      <div class="card contact">
+        <div class="section-title">Contact / Team</div>
+        <p>
+          Developed by: COBRA TECH<br>
+          Email: cobratech@agrihealth.com<br>
+          Hackathon Project: Gigifying Farming<br>
+          We welcome feedback and suggestions to improve Agri Health.
+        </p>
+        <div class="recommendation">
+          We recommend visiting the <a href="https://www.ceew.in" target="_blank">CEEW website</a> for further insights.
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+      <button id="homeBtn">Back to Home</button>
+      <button id="logoutBtn">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('homeBtn').addEventListener('click', () => {
+      window.location.href = 'home.html';
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      window.location.href = 'login.html';
+    });
+  </script>
+  <!-- Chat Button -->
+<!-- Chat Button -->
+<div id="chat-button" style="position:fixed; bottom:20px; right:20px; z-index:1000;">
+  <button onclick="toggleChat()" style="background-color:#2f855a; color:white; padding:12px 20px; border:none; border-radius:50px; cursor:pointer; box-shadow:0 4px #276749; transition: all 0.3s ease;">Chat</button>
+</div>
+
+<!-- Chat Window -->
+<div id="chat-window" style="display:none; position:fixed; bottom:70px; right:20px; width:320px; max-height:400px; background:white; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.3); overflow:hidden; z-index:1000; font-family:Arial, sans-serif;">
+  <div id="chat-header" style="background:#2f855a; color:white; padding:10px; font-weight:bold; cursor:pointer;" onclick="toggleChat()">AgriBot (Click to close/open)</div>
+  <div id="chat-messages" style="padding:10px; height:250px; overflow-y:auto; font-size:14px; background:#f0fff4;"></div>
+  <div style="padding:10px; display:flex; background:#f0fff4;">
+    <input id="chat-input" type="text" placeholder="Ask about crops, pests, or farming..." style="flex:1; padding:6px; border:1px solid #ccc; border-radius:6px;">
+    <button onclick="sendMessage()" style="background:#2f855a; color:white; padding:6px 12px; border:none; border-radius:6px; margin-left:5px; cursor:pointer;">Send</button>
+  </div>
+</div>
+
+<style>
+  .chat-message { opacity:0; transform:translateY(10px); animation:popUp 0.3s forwards; margin-bottom:6px; }
+  @keyframes popUp { to { opacity:1; transform:translateY(0); } }
+  .typing { font-style:italic; color:#555; opacity:0.7; }
+</style>
+
+<script>
+  function toggleChat() {
+    const chat = document.getElementById('chat-window');
+    chat.style.display = chat.style.display === 'none' ? 'block' : 'none';
+  }
+
+  const chatMessages = document.getElementById('chat-messages');
+
+  function appendMessage(sender, text) {
+    const div = document.createElement('div');
+    div.className = 'chat-message';
+    div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const msg = input.value.trim();
+    if(!msg) return;
+
+    appendMessage('You', msg);
+    input.value = '';
+
+    // Bot response with typing delay
+    const botReply = getBotResponse(msg);
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'chat-message typing';
+    typingDiv.innerHTML = 'Bot is typing...';
+    chatMessages.appendChild(typingDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    setTimeout(() => {
+      typingDiv.remove();
+      appendMessage('Bot', botReply);
+    }, 800); // 0.8s typing delay
+  }
+
+  function getBotResponse(message) {
+    const msg = message.toLowerCase();
+
+    if(msg.includes('hi') || msg.includes('hello')) return "Hello! I am AgriBot. How can I help you with farming or crops today?";
+    if(msg.includes('crop')) return "You can use the Diagnosis page to check your crops' health.";
+    if(msg.includes('pest')) return "Pests can damage crops. Upload images in the Diagnosis page for detection.";
+    if(msg.includes('agriculture')) return "Agriculture involves crop cultivation, irrigation, and pest management. Our site helps you monitor it.";
+    if(msg.includes('farmer')) return "Farmers can track crop health and get guidance using our Diagnosis and FAQ sections.";
+    if(msg.includes('irrigation')) return "Regular irrigation is important but avoid overwatering. Crop type matters.";
+    if(msg.includes('disease') || msg.includes('health')) return "Upload crop images in the Diagnosis page to detect any disease or pest.";
+    
+    return "This feature is in progress. We will update soon!";
+  }
+</script>
+</body>
+</html>
